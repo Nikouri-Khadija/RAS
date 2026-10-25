@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_ras_categorie_remuneration_list" model="ir.ui.view">
+        <field name="name">ras.categorie.remuneration.list</field>
+        <field name="model">ras.categorie.remuneration</field>
+        <field name="arch" type="xml">
+            <list string="Catégories de rémunération RAS" editable="bottom">
+                <field name="sequence" widget="handle"/>
+                <field name="name"/>
+                <field name="code_dgi_tva"/>
+                <field name="code_dgi_is"/>
+                <field name="ras_soumis_tva"/>
+                <field name="ras_soumis_is"/>
+                <field name="active" widget="boolean_toggle"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_ras_categorie_remuneration_form" model="ir.ui.view">
+        <field name="name">ras.categorie.remuneration.form</field>
+        <field name="model">ras.categorie.remuneration</field>
+        <field name="arch" type="xml">
+            <form string="Catégorie de rémunération RAS">
+                <sheet>
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="code_dgi_tva"/>
+                            <field name="code_dgi_is"/>
+                            <field name="ras_soumis_tva"/>
+                            <field name="ras_soumis_is"/>
+                        </group>
+                        <group>
+                            <field name="sequence"/>
+                            <field name="active" widget="boolean_toggle"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_ras_categorie_remuneration_search" model="ir.ui.view">
+        <field name="name">ras.categorie.remuneration.search</field>
+        <field name="model">ras.categorie.remuneration</field>
+        <field name="arch" type="xml">
+            <search string="Catégories de rémunération RAS">
+                <field name="name"/>
+                <field name="code_dgi_tva"/>
+                <field name="code_dgi_is"/>
+                <filter name="inactive" string="Archivé"
+                        domain="[('active', '=', False)]"/>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_ras_categorie_remuneration" model="ir.actions.act_window">
+        <field name="name">Catégories de rémunération RAS</field>
+        <field name="res_model">ras.categorie.remuneration</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="view_ras_categorie_remuneration_search"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">Aucune catégorie de rémunération</p>
+            <p>Ces catégories qualifient les articles soumis à la RAS et portent les codes exigés par la DGI dans les fichiers de déclaration.</p>
+        </field>
+    </record>
+
+    <menuitem id="menu_ras_categorie_remuneration"
+              name="Catégories de rémunération RAS"
+              action="action_ras_categorie_remuneration"
+              parent="account.account_account_menu"
+              sequence="3"/>
+
+</odoo>

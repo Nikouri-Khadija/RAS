@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Crée les comptes « État - RAS … à reverser » (445820 à 445850) et les
+         affecte aux taxes RAS qui n'ont pas encore de compte. -->
+    <function model="account.tax" name="_ras_installer_comptes"/>
+
+</odoo>

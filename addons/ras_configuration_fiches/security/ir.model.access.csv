@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_ras_categorie_remuneration_user,ras.categorie.remuneration user,model_ras_categorie_remuneration,base.group_user,1,0,0,0
+access_ras_categorie_remuneration_manager,ras.categorie.remuneration manager,model_ras_categorie_remuneration,account.group_account_manager,1,1,1,1
+access_ras_motif_exclusion_user,ras.motif.exclusion user,model_ras_motif_exclusion,base.group_user,1,0,0,0
+access_ras_motif_exclusion_manager,ras.motif.exclusion manager,model_ras_motif_exclusion,account.group_account_manager,1,1,1,1

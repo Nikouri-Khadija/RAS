@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+
+    <!-- Groupe de taxes -->
+    <record id="tax_group_ras" model="account.tax.group">
+        <field name="name">Retenue à la source</field>
+        <field name="company_id" ref="base.main_company"/>
+    </record>
+
+    <!-- RAS TVA -->
+    <record id="tax_ras_tva_75_20" model="account.tax">
+        <field name="name">RAS TVA 75% (20%)</field>
+        <field name="company_id" ref="base.main_company"/>
+        <field name="type_tax_use">purchase</field>
+        <field name="amount_type">percent</field>
+        <field name="amount">-15</field>
+        <field name="tax_group_id" ref="tax_group_ras"/>
+        <field name="ras_is_retenue_source" eval="True"/>
+        <field name="ras_type">tva</field>
+        <field name="ras_taux_legal">75</field>
+        <field name="ras_taxe_tva_reference_id" model="account.tax"
+               search="[('company_id', '=', ref('base.main_company')),
+                        ('type_tax_use', '=', 'purchase'),
+                        ('amount_type', '=', 'percent'),
+                        ('amount', '=', 20)]"/>
+    </record>
+
+    <record id="tax_ras_tva_100_20" model="account.tax">
+        <field name="name">RAS TVA 100% (20%)</field>
+        <field name="company_id" ref="base.main_company"/>
+        <field name="type_tax_use">purchase</field>
+        <field name="amount_type">percent</field>
+        <field name="amount">-20</field>
+        <field name="tax_group_id" ref="tax_group_ras"/>
+        <field name="ras_is_retenue_source" eval="True"/>
+        <field name="ras_type">tva</field>
+        <field name="ras_taux_legal">100</field>
+        <field name="ras_taxe_tva_reference_id" model="account.tax"
+               search="[('company_id', '=', ref('base.main_company')),
+                        ('type_tax_use', '=', 'purchase'),
+                        ('amount_type', '=', 'percent'),
+                        ('amount', '=', 20)]"/>
+    </record>
+
+    <record id="tax_ras_tva_75_14" model="account.tax">
+        <field name="name">RAS TVA 75% (14%)</field>
+        <field name="company_id" ref="base.main_company"/>
+        <field name="type_tax_use">purchase</field>
+        <field name="amount_type">percent</field>
+        <field name="amount">-10.5</field>
+        <field name="tax_group_id" ref="tax_group_ras"/>
+        <field name="ras_is_retenue_source" eval="True"/>
+        <field name="ras_type">tva</field>
+        <field name="ras_taux_legal">75</field>
+        <field name="ras_taxe_tva_reference_id" model="account.tax"
+               search="[('company_id', '=', ref('base.main_company')),
+                        ('type_tax_use', '=', 'purchase'),
+                        ('amount_type', '=', 'percent'),
+                        ('amount', '=', 14)]"/>
+    </record>
+
+    <record id="tax_ras_tva_75_10" model="account.tax">
+        <field name="name">RAS TVA 75% (10%)</field>
+        <field name="company_id" ref="base.main_company"/>
+        <field name="type_tax_use">purchase</field>
+        <field name="amount_type">percent</field>
+        <field name="amount">-7.5</field>
+        <field name="tax_group_id" ref="tax_group_ras"/>
+        <field name="ras_is_retenue_source" eval="True"/>
+        <field name="ras_type">tva</field>
+        <field name="ras_taux_legal">75</field>
+        <field name="ras_taxe_tva_reference_id" model="account.tax"
+               search="[('company_id', '=', ref('base.main_company')),
+                        ('type_tax_use', '=', 'purchase'),
+                        ('amount_type', '=', 'percent'),
+                        ('amount', '=', 10)]"/>
+    </record>
+
+    <record id="tax_ras_tva_75_7" model="account.tax">
+        <field name="name">RAS TVA 75% (7%)</field>
+        <field name="company_id" ref="base.main_company"/>
+        <field name="type_tax_use">purchase</field>
+        <field name="amount_type">percent</field>
+        <field name="amount">-5.25</field>
+        <field name="tax_group_id" ref="tax_group_ras"/>
+        <field name="ras_is_retenue_source" eval="True"/>
+        <field name="ras_type">tva</field>
+        <field name="ras_taux_legal">75</field>
+        <field name="ras_taxe_tva_reference_id" model="account.tax"
+               search="[('company_id', '=', ref('base.main_company')),
+                        ('type_tax_use', '=', 'purchase'),
+                        ('amount_type', '=', 'percent'),
+                        ('amount', '=', 7)]"/>
+    </record>
+
+    <record id="tax_ras_tva_100_14" model="account.tax">
+        <field name="name">RAS TVA 100% (14%)</field>
+        <field name="company_id" ref="base.main_company"/>
+        <field name="type_tax_use">purchase</field>
+        <field name="amount_type">percent</field>
+        <field name="amount">-14</field>
+        <field name="tax_group_id" ref="tax_group_ras"/>
+        <field name="ras_is_retenue_source" eval="True"/>
+        <field name="ras_type">tva</field>
+        <field name="ras_taux_legal">100</field>
+        <field name="ras_taxe_tva_reference_id" model="account.tax"
+               search="[('company_id', '=', ref('base.main_company')),
+                        ('type_tax_use', '=', 'purchase'),
+                        ('amount_type', '=', 'percent'),
+                        ('amount', '=', 14)]"/>
+    </record>
+
+    <record id="tax_ras_tva_100_10" model="account.tax">
+        <field name="name">RAS TVA 100% (10%)</field>
+        <field name="company_id" ref="base.main_company"/>
+        <field name="type_tax_use">purchase</field>
+        <field name="amount_type">percent</field>
+        <field name="amount">-10</field>
+        <field name="tax_group_id" ref="tax_group_ras"/>
+        <field name="ras_is_retenue_source" eval="True"/>
+        <field name="ras_type">tva</field>
+        <field name="ras_taux_legal">100</field>
+        <field name="ras_taxe_tva_reference_id" model="account.tax"
+               search="[('company_id', '=', ref('base.main_company')),
+                        ('type_tax_use', '=', 'purchase'),
+                        ('amount_type', '=', 'percent'),
+                        ('amount', '=', 10)]"/>
+    </record>
+
+    <record id="tax_ras_tva_100_7" model="account.tax">
+        <field name="name">RAS TVA 100% (7%)</field>
+        <field name="company_id" ref="base.main_company"/>
+        <field name="type_tax_use">purchase</field>
+        <field name="amount_type">percent</field>
+        <field name="amount">-7</field>
+        <field name="tax_group_id" ref="tax_group_ras"/>
+        <field name="ras_is_retenue_source" eval="True"/>
+        <field name="ras_type">tva</field>
+        <field name="ras_taux_legal">100</field>
+        <field name="ras_taxe_tva_reference_id" model="account.tax"
+               search="[('company_id', '=', ref('base.main_company')),
+                        ('type_tax_use', '=', 'purchase'),
+                        ('amount_type', '=', 'percent'),
+                        ('amount', '=', 7)]"/>
+    </record>
+
+    <!-- RAS IS -->
+    <record id="tax_ras_is_5" model="account.tax">
+        <field name="name">RAS IS 5%</field>
+        <field name="company_id" ref="base.main_company"/>
+        <field name="type_tax_use">purchase</field>
+        <field name="amount_type">percent</field>
+        <field name="amount">-5</field>
+        <field name="tax_group_id" ref="tax_group_ras"/>
+        <field name="ras_is_retenue_source" eval="True"/>
+        <field name="ras_type">is</field>
+        <field name="ras_taux_legal">5</field>
+    </record>
+
+    <!-- RAS IR -->
+    <record id="tax_ras_ir_10" model="account.tax">
+        <field name="name">RAS IR 10%</field>
+        <field name="company_id" ref="base.main_company"/>
+        <field name="type_tax_use">purchase</field>
+        <field name="amount_type">percent</field>
+        <field name="amount">-10</field>
+        <field name="tax_group_id" ref="tax_group_ras"/>
+        <field name="ras_is_retenue_source" eval="True"/>
+        <field name="ras_type">ir</field>
+        <field name="ras_taux_legal">10</field>
+    </record>
+
+    <!-- RAS Non-résident : taux de droit commun 10 %.
+         Les taux conventionnels sont créés automatiquement depuis la fiche Pays. -->
+
+    <record id="tax_ras_export_10" model="account.tax">
+        <field name="name">RAS Non-résident 10%</field>
+        <field name="company_id" ref="base.main_company"/>
+        <field name="type_tax_use">purchase</field>
+        <field name="amount_type">percent</field>
+        <field name="amount">-10</field>
+        <field name="tax_group_id" ref="tax_group_ras"/>
+        <field name="ras_is_retenue_source" eval="True"/>
+        <field name="ras_type">export</field>
+        <field name="ras_taux_legal">10</field>
+    </record>
+
+</odoo>

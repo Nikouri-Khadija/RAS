@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_move_form_ras_custom" model="ir.ui.view">
+        <field name="name">account.move.form.ras.custom</field>
+        <field name="model">account.move</field>
+        <field name="inherit_id" ref="account.view_move_form"/>
+        <field name="arch" type="xml">
+
+            <!-- Masquer tax_ids native et afficher visuel_tax_ids -->
+            <xpath expr="//field[@name='invoice_line_ids']//field[@name='tax_ids']" position="attributes">
+                <attribute name="column_invisible">1</attribute>
+            </xpath>
+
+            <xpath expr="//field[@name='invoice_line_ids']//field[@name='tax_ids']" position="after">
+                <field name="visuel_tax_ids"
+                       widget="many2many_tags"
+                       domain="[('ras_is_retenue_source', '=', False)]"
+                       string="Taxes"/>
+            </xpath>
+
+            <!-- Affichage dynamique du détail RAS dans la carte de droite sous Total -->
+            <xpath expr="//field[@name='tax_totals']" position="after">
+                <field name="ras_amount_tva" 
+                       string="Montant RAS TVA" 
+                       readonly="1" 
+                       invisible="ras_amount_tva == 0"/>
+
+                <field name="ras_amount_is" 
+                       string="Montant RAS IS" 
+                       readonly="1" 
+                       invisible="ras_amount_is == 0"/>
+
+                <field name="ras_amount_ir" 
+                       string="Montant RAS IR" 
+                       readonly="1" 
+                       invisible="ras_amount_ir == 0"/>
+
+                <field name="ras_amount_export"
+                       string="Montant RAS Non-résident"
+                       readonly="1"
+                       invisible="ras_amount_export == 0"/>
+
+                <field name="ras_amount" 
+                       string="Montant RAS Total" 
+                       readonly="1" 
+                       invisible="ras_amount == 0"/>
+            </xpath>
+
+        </field>
+    </record>
+
+</odoo>

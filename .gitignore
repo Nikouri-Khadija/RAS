@@ -1,0 +1,5 @@
+odoo_data/
+odoo_db/
+__pycache__/
+*.pyc
+config/odoo.conf

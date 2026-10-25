@@ -1,0 +1,5 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_ras_declaration_wizard,ras.declaration.wizard,model_ras_declaration_wizard,account.group_account_invoice,1,1,1,1
+access_ras_declaration_user,ras.declaration user,model_ras_declaration,account.group_account_invoice,1,0,0,0
+access_ras_declaration_manager,ras.declaration manager,model_ras_declaration,account.group_account_manager,1,1,1,1
+access_ras_attestation_wizard,ras.attestation.wizard,model_ras_attestation_wizard,account.group_account_invoice,1,1,1,1

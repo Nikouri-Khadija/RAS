@@ -1,0 +1,32 @@
+version: '3.3'
+services:
+  ras_payment_db:
+    image: postgres:16
+    container_name: ras_payment_db
+    environment:
+      POSTGRES_USER: odoo
+      POSTGRES_PASSWORD: odoo
+      POSTGRES_DB: postgres
+    volumes:
+      - ./odoo_db:/var/lib/postgresql/data
+
+  ras_payment_odoo:
+    image: odoo:18.0
+    container_name: ras_payment
+    depends_on:
+      - ras_payment_db
+    ports:
+      - 18007:8069
+    environment:
+      - POSTGRES_USER=odoo
+      - POSTGRES_PASSWORD=odoo
+      - POSTGRES_DB=postgres
+      - PGHOST=ras_payment_db
+      - PGPORT=5432
+      - PGUSER=odoo
+      - PGPASSWORD=odoo
+    volumes:
+      - ./odoo_data:/var/lib/odoo
+      - ./config:/etc/odoo
+      - ./addons/:/mnt/extra-addons
+    command: -- --dev xml,qweb,werkzeug

@@ -1,0 +1,26 @@
+[options]
+addons_path = /mnt/extra-addons
+data_dir = /var/lib/odoo
+
+; Base de données
+db_host = ras_payment_db
+db_port = 5432
+db_user = odoo
+db_password = CHANGE_ME
+db_maxconn = 64
+
+; Réseau
+http_port = 8069
+proxy_mode = False
+
+; Sécurité
+admin_passwd = CHANGE_ME
+list_db = True
+
+; Performance
+workers = 0
+limit_time_cpu = 600
+limit_time_real = 1200
+
+; Logs
+log_level = info

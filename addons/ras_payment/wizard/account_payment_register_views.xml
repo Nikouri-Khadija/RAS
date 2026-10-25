@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_account_payment_register_form_ras" model="ir.ui.view">
+        <field name="name">account.payment.register.form.ras</field>
+        <field name="model">account.payment.register</field>
+        <field name="inherit_id" ref="account.view_account_payment_register_form"/>
+        <field name="arch" type="xml">
+
+            <!-- Détail de la RAS retenue sur ce paiement -->
+            <xpath expr="//group[group[@name='group1']]" position="after">
+                <field name="ras_move_id" invisible="1"/>
+                <div invisible="not ras_ligne_ids">
+                    <div class="alert alert-info" role="alert">
+                        <strong>Retenue à la source : <field name="ras_montant" class="oe_inline"/></strong>
+                        — le montant ci-dessus est le net à verser au fournisseur ;
+                        la retenue est comptabilisée sur les comptes ci-dessous.
+                    </div>
+                    <field name="ras_ligne_ids" readonly="1" nolabel="1">
+                        <list>
+                            <field name="currency_id" column_invisible="1"/>
+                            <field name="name"/>
+                            <field name="account_id"/>
+                            <field name="montant" sum="Total RAS"/>
+                        </list>
+                    </field>
+                </div>
+            </xpath>
+
+            <!-- Zone « Différence de paiement » masquée : l'écart est la RAS,
+                 détaillée dans l'encadré ci-dessous -->
+            <xpath expr="//label[@for='payment_difference']" position="attributes">
+                <attribute name="invisible">not show_payment_difference or ras_ligne_ids</attribute>
+            </xpath>
+            <xpath expr="//div[field[@name='payment_difference']]" position="attributes">
+                <attribute name="invisible">not show_payment_difference or ras_ligne_ids</attribute>
+            </xpath>
+
+            <!-- Bouton « Calculer la RAS » -->
+            <xpath expr="//footer/button[@special='cancel']" position="before">
+                <button string="Calculer la RAS"
+                        name="action_calculer_ras"
+                        type="object"
+                        class="btn-secondary"
+                        invisible="not ras_move_id"/>
+            </xpath>
+
+        </field>
+    </record>
+
+</odoo>

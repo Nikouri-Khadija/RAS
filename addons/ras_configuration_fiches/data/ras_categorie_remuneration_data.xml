@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+
+    <!-- Catégories de rémunération RAS : prestations soumises de la
+         cartographie LMV (RAS TVA / RAS IS applicables). Codes DGI à compléter
+         depuis Configuration > Catégories de rémunération RAS. -->
+
+    <record id="categ_remun_lld" model="ras.categorie.remuneration">
+        <field name="name">Location longue durée de voitures (LLD)</field>
+        <field name="code">location_longue_duree_de_voitures_lld</field>
+        <field name="code_dgi_tva">3</field>
+        <field name="ras_soumis_tva" eval="True"/>
+        <field name="ras_soumis_is" eval="False"/>
+        <field name="sequence">10</field>
+    </record>
+
+    <record id="categ_remun_affranchissement" model="ras.categorie.remuneration">
+        <field name="name">Affranchissement &amp; Éditique</field>
+        <field name="code">affranchissement_editique</field>
+        <field name="code_dgi_tva">3</field>
+        <field name="ras_soumis_tva" eval="True"/>
+        <field name="ras_soumis_is" eval="False"/>
+        <field name="sequence">20</field>
+    </record>
+
+    <record id="categ_remun_nettoyage" model="ras.categorie.remuneration">
+        <field name="name">Nettoyage des locaux</field>
+        <field name="code">nettoyage_des_locaux</field>
+        <field name="code_dgi_tva">3</field>
+        <field name="ras_soumis_tva" eval="True"/>
+        <field name="ras_soumis_is" eval="False"/>
+        <field name="sequence">30</field>
+    </record>
+
+    <record id="categ_remun_gardiennage" model="ras.categorie.remuneration">
+        <field name="name">Gardiennage / sécurité</field>
+        <field name="code">gardiennage_securite</field>
+        <field name="code_dgi_tva">3</field>
+        <field name="ras_soumis_tva" eval="True"/>
+        <field name="ras_soumis_is" eval="False"/>
+        <field name="sequence">40</field>
+    </record>
+
+    <record id="categ_remun_interim" model="ras.categorie.remuneration">
+        <field name="name">Intérim et mise à disposition de personnel</field>
+        <field name="code">interim_et_mise_a_disposition_de_personnel</field>
+        <field name="code_dgi_tva">3</field>
+        <field name="ras_soumis_tva" eval="True"/>
+        <field name="ras_soumis_is" eval="False"/>
+        <field name="sequence">50</field>
+    </record>
+
+    <record id="categ_remun_agence_voyage" model="ras.categorie.remuneration">
+        <field name="name">Restauration/billeterie/hébergement assurés par une agence de voyage</field>
+        <field name="code">restauration_billeterie_hebergement_assures_par_une_agence_de_voyage</field>
+        <field name="code_dgi_tva">3</field>
+        <field name="ras_soumis_tva" eval="True"/>
+        <field name="ras_soumis_is" eval="False"/>
+        <field name="sequence">60</field>
+    </record>
+
+    <record id="categ_remun_location_imprimante" model="ras.categorie.remuneration">
+        <field name="name">Location d'imprimante</field>
+        <field name="code">location_d_imprimante</field>
+        <field name="code_dgi_tva">3</field>
+        <field name="ras_soumis_tva" eval="True"/>
+        <field name="ras_soumis_is" eval="True"/>
+        <field name="sequence">70</field>
+    </record>
+
+    <record id="categ_remun_prestation_3d" model="ras.categorie.remuneration">
+        <field name="name">Prestation 3D (désinfection, désinsectisation, dératisation)</field>
+        <field name="code">prestation_3d_desinfection_desinsectisation_deratisation</field>
+        <field name="code_dgi_tva">3</field>
+        <field name="ras_soumis_tva" eval="True"/>
+        <field name="ras_soumis_is" eval="True"/>
+        <field name="sequence">80</field>
+    </record>
+
+    <record id="categ_remun_archivage" model="ras.categorie.remuneration">
+        <field name="name">Archivage &amp; Conservation d’archives</field>
+        <field name="code">archivage_conservation_darchives</field>
+        <field name="code_dgi_tva">3</field>
+        <field name="ras_soumis_tva" eval="True"/>
+        <field name="ras_soumis_is" eval="True"/>
+        <field name="sequence">90</field>
+    </record>
+
+    <record id="categ_remun_gestion_immeuble" model="ras.categorie.remuneration">
+        <field name="name">Honoraires de gestion d’immeuble</field>
+        <field name="code">honoraires_de_gestion_dimmeuble</field>
+        <field name="code_dgi_tva">3</field>
+        <field name="ras_soumis_tva" eval="True"/>
+        <field name="ras_soumis_is" eval="True"/>
+        <field name="sequence">100</field>
+    </record>
+
+    <record id="categ_remun_honoraires_intellectuels" model="ras.categorie.remuneration">
+        <field name="name">Honoraires/rémunérations intellectuelles Scientifique, Technique, Informatique</field>
+        <field name="code">honoraires_remunerations_intellectuelles_scientifique_technique_informatique</field>
+        <field name="code_dgi_tva">3</field>
+        <field name="ras_soumis_tva" eval="True"/>
+        <field name="ras_soumis_is" eval="True"/>
+        <field name="sequence">110</field>
+    </record>
+
+    <record id="categ_remun_conseil_formation" model="ras.categorie.remuneration">
+        <field name="name">Formation, Promotion, Marketing/emailing, Communication, Publicité, Gestion comptable et administrative, Ingénierie industrielle, Gestion de projets, Bureau d'étude, Conseil/Expertise, Assistance/Accompagnement, rémunération cabinets de recrutement &amp; Maitrise d’ouvrage déléguée</field>
+        <field name="code">formation_promotion_marketing_emailing_communication_publicite_gestion_comptable_et_administrative_ingenierie_industrielle_gestion_de_projets_bureau_d_etude_conseil_expertise_assistance_accompagnement_remuneration_cabinets_de_recrutement_maitrise_douvrage_deleguee</field>
+        <field name="code_dgi_tva">3</field>
+        <field name="ras_soumis_tva" eval="True"/>
+        <field name="ras_soumis_is" eval="True"/>
+        <field name="sequence">120</field>
+    </record>
+
+    <record id="categ_remun_maintenance_logiciels" model="ras.categorie.remuneration">
+        <field name="name">Maintenance des logiciels</field>
+        <field name="code">maintenance_des_logiciels</field>
+        <field name="code_dgi_tva">3</field>
+        <field name="ras_soumis_tva" eval="True"/>
+        <field name="ras_soumis_is" eval="True"/>
+        <field name="sequence">130</field>
+    </record>
+
+    <record id="categ_remun_parametrage_licences" model="ras.categorie.remuneration">
+        <field name="name">Installation/ Support / paramétrage licences</field>
+        <field name="code">installation_support_parametrage_licences</field>
+        <field name="code_dgi_tva">3</field>
+        <field name="ras_soumis_tva" eval="True"/>
+        <field name="ras_soumis_is" eval="True"/>
+        <field name="sequence">140</field>
+    </record>
+
+    <record id="categ_remun_paie" model="ras.categorie.remuneration">
+        <field name="name">Externalisation de la paie</field>
+        <field name="code">externalisation_de_la_paie</field>
+        <field name="code_dgi_tva">3</field>
+        <field name="ras_soumis_tva" eval="True"/>
+        <field name="ras_soumis_is" eval="True"/>
+        <field name="sequence">150</field>
+    </record>
+
+    <record id="categ_remun_avocat_notaire" model="ras.categorie.remuneration">
+        <field name="name">Honoraires d’avocat/Notaire</field>
+        <field name="code">honoraires_davocat_notaire</field>
+        <field name="code_dgi_tva">3</field>
+        <field name="ras_soumis_tva" eval="True"/>
+        <field name="ras_soumis_is" eval="True"/>
+        <field name="sequence">160</field>
+    </record>
+
+    <record id="categ_remun_commissaires_comptes" model="ras.categorie.remuneration">
+        <field name="name">Honoraires commissaires aux comptes</field>
+        <field name="code">honoraires_commissaires_aux_comptes</field>
+        <field name="code_dgi_tva">3</field>
+        <field name="ras_soumis_tva" eval="True"/>
+        <field name="ras_soumis_is" eval="True"/>
+        <field name="sequence">170</field>
+    </record>
+
+    <record id="categ_remun_loyers" model="ras.categorie.remuneration">
+        <field name="name">Loyers immobiliers (bureaux, locaux, centres d’estivage)</field>
+        <field name="code">loyers_immobiliers_bureaux_locaux_centres_destivage</field>
+        <field name="code_dgi_tva">3</field>
+        <field name="ras_soumis_tva" eval="True"/>
+        <field name="ras_soumis_is" eval="True"/>
+        <field name="sequence">180</field>
+    </record>
+
+</odoo>

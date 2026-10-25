@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="paperformat_ras_attestation" model="report.paperformat">
+        <field name="name">Attestation RAS (A4)</field>
+        <field name="format">A4</field>
+        <field name="orientation">Portrait</field>
+        <field name="margin_top">15</field>
+        <field name="margin_bottom">15</field>
+        <field name="margin_left">15</field>
+        <field name="margin_right">15</field>
+        <field name="header_spacing">0</field>
+        <field name="dpi">90</field>
+    </record>
+
+    <record id="action_report_ras_attestation" model="ir.actions.report">
+        <field name="name">Attestation RAS</field>
+        <field name="model">ras.declaration</field>
+        <field name="report_type">qweb-pdf</field>
+        <field name="report_name">ras_declaration.report_ras_attestation</field>
+        <field name="report_file">ras_declaration.report_ras_attestation</field>
+        <field name="print_report_name">'Attestation RAS %s-%s' % (object.annee, object.periode)</field>
+        <field name="paperformat_id" ref="paperformat_ras_attestation"/>
+    </record>
+
+    <template id="report_ras_attestation">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-set="societe" t-value="doc.company_id"/>
+                <t t-set="devise" t-value="{'widget': 'monetary', 'display_currency': doc.currency_id}"/>
+                <t t-foreach="doc.attestation_par_fournisseur()" t-as="groupe">
+                    <t t-set="fournisseur" t-value="groupe['partner']"/>
+                    <t t-call="web.basic_layout">
+                        <div class="page" style="font-family:Arial, sans-serif; font-size:12px;">
+
+                            <!-- En-tête de l'entreprise -->
+                            <div style="border-bottom:1px solid #333; padding-bottom:6px; margin-bottom:12px;">
+                                <div><strong t-field="societe.name"/></div>
+                                <div>Adresse du siège social :
+                                    <span t-esc="', '.join(filter(None, [societe.street, societe.street2, societe.zip, societe.city, societe.country_id.name]))"/>
+                                </div>
+                                <div>Identifiant Fiscal (IF) :&#160;<span t-field="societe.ras_identifiant_fiscal"/>
+                                    | ICE :&#160;<span t-field="societe.company_registry"/></div>
+                            </div>
+
+                            <p style="font-size:16px; font-weight:bold; margin-top:10px;">Objet : Attestation de retenue à la source au titre&#160;<span t-esc="doc._titre_type_ras()"/></p>
+                            <p>Fait à <span t-esc="societe.city"/>, le
+                                <span t-esc="doc._date_en_lettres(context_timestamp(datetime.datetime.now()).date())"/></p>
+
+                            <p>Nous soussignés, <strong t-field="societe.name"/>, certifions par la présente
+                                avoir procédé, au titre de l'année <span t-esc="doc.annee"/>, à la retenue à la source sur les paiements effectués au profit
+                                de notre fournisseur ci-dessous désigné, conformément à la législation
+                                fiscale en vigueur au Maroc.</p>
+
+                            <!-- 1. Fournisseur -->
+                            <div style="font-size:14px; font-weight:bold; margin-top:16px; margin-bottom:6px;">Informations sur le Fournisseur</div>
+                            <ul>
+                                <li>Raison sociale :&#160;<span t-if="fournisseur.title" t-esc="fournisseur.title.name"/> <span t-field="fournisseur.name"/></li>
+                                <li>Identifiant Fiscal (IF) :&#160;<span t-field="fournisseur.ras_identifiant_fiscal"/></li>
+                            </ul>
+
+                            <!-- 2. Détail -->
+                            <div style="font-size:14px; font-weight:bold; margin-top:16px; margin-bottom:6px;">Détails des opérations et de la Retenue à la Source (RAS)</div>
+                            <p>Voici le détail de la retenue opérée sur la (les) facture(s) concernée(s) :</p>
+                            <table style="width:100%; border-collapse:collapse; font-size:11px;">
+                                <thead>
+                                    <tr>
+                                        <th style="border:1px solid #444; padding:4px; background:#eee; text-align:left;">Opération</th>
+                                        <th style="border:1px solid #444; padding:4px; background:#eee; text-align:center;">Mois de paiement</th>
+                                        <th style="border:1px solid #444; padding:4px; background:#eee; text-align:right;">Base de calcul</th>
+                                        <th style="border:1px solid #444; padding:4px; background:#eee; text-align:center;">Taux RAS</th>
+                                        <th style="border:1px solid #444; padding:4px; background:#eee; text-align:right;">Montant RAS</th>
+                                        <th style="border:1px solid #444; padding:4px; background:#eee; text-align:center;">Date versement RAS</th>
+                                        <th style="border:1px solid #444; padding:4px; background:#eee; text-align:center;">Réf. Versement DGI</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr t-foreach="groupe['lignes']" t-as="ligne">
+                                        <td style="border:1px solid #444; padding:4px;" t-esc="ligne['operation']"/>
+                                        <td style="border:1px solid #444; padding:4px; text-align:center;" t-esc="ligne['mois_paiement']"/>
+                                        <td style="border:1px solid #444; padding:4px; text-align:right;" t-esc="ligne['base_calcul']" t-options='{"widget": "float", "precision": 2}'/>
+                                        <td style="border:1px solid #444; padding:4px; text-align:center;"><span t-esc="'%g' % ligne['taux_ras']"/>%</td>
+                                        <td style="border:1px solid #444; padding:4px; text-align:right;" t-esc="ligne['montant_ras']" t-options='{"widget": "float", "precision": 2}'/>
+                                        <td style="border:1px solid #444; padding:4px; text-align:center;"><span t-field="doc.date_reversement"/></td>
+                                        <td style="border:1px solid #444; padding:4px; text-align:center;"><span t-field="doc.reference_quittance"/></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                            <p style="margin-top:16px;">La présente attestation est délivrée à la demande de l'intéressé pour servir et valoir ce que de droit.</p>
+
+                            <div style="margin-top:30px; margin-left:55%; text-align:center;">
+                                <strong t-esc="societe.name.upper()"/>
+                            </div>
+
+                        </div>
+                    </t>
+                </t>
+            </t>
+        </t>
+    </template>
+
+</odoo>

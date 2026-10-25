@@ -1,0 +1,16 @@
+<odoo>
+    <record id="view_country_form_ras" model="ir.ui.view">
+        <field name="name">res.country.form.ras</field>
+        <field name="model">res.country</field>
+        <field name="inherit_id" ref="base.view_country_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//sheet" position="inside">
+                <group string="RAS Non-résident">
+                    <field name="ras_convention_fiscale"/>
+                    <field name="ras_taux_conventionnel"
+                           invisible="not ras_convention_fiscale"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_ras_declaration_wizard_form" model="ir.ui.view">
+        <field name="name">ras.declaration.wizard.form</field>
+        <field name="model">ras.declaration.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Déclarer la RAS">
+
+                <field name="currency_id" invisible="1"/>
+                <field name="etat" invisible="1"/>
+
+                <div class="alert alert-success" role="alert"
+                     invisible="etat != 'genere'">
+                    <strong>Fichier généré.</strong> Cliquez sur le nom du fichier pour le télécharger, puis déposez-le sur SIMPL. Il reste disponible dans Comptabilité → Analyse → Déclarations RAS.
+                </div>
+
+                <div invisible="etat != 'genere'">
+                    <group>
+                        <field name="fichier" filename="nom_fichier" readonly="1"/>
+                        <field name="nom_fichier" invisible="1"/>
+                    </group>
+                </div>
+
+                <div class="alert alert-info" role="alert"
+                     invisible="not message or etat == 'genere'">
+                    <field name="message" readonly="1" nolabel="1"/>
+                </div>
+
+                <field name="deja_declare" invisible="1"/>
+                <div class="alert alert-warning" role="alert"
+                     invisible="not deja_declare or etat == 'genere'">
+                    <strong>Factures déjà déclarées.</strong>
+                    <field name="message_deja_declare" readonly="1" nolabel="1"/>
+                    <div>Pour les déclarer à nouveau, cliquez sur « Forcer la redéclaration ».</div>
+                </div>
+
+                <group invisible="etat == 'genere'">
+                    <group>
+                        <field name="type_declaration"/>
+                        <field name="annee"/>
+                        <field name="regime" readonly="type_declaration == 'is'" force_save="1"/>
+                        <field name="periode_mois"
+                               invisible="regime != '1'"
+                               required="regime == '1'"/>
+                        <field name="periode_trimestre"
+                               invisible="regime != '2'"
+                               required="regime == '2'"/>
+                    </group>
+                    <group string="Récapitulatif">
+                        <field name="nb_factures"/>
+                        <field name="total_base"/>
+                        <field name="total_retenu"/>
+                    </group>
+                </group>
+
+                <footer>
+                    <button string="Générer"
+                            name="action_generer"
+                            type="object"
+                            class="btn-primary"
+                            invisible="etat == 'genere' or deja_declare"/>
+                    <button string="Forcer la redéclaration"
+                            name="action_forcer_redeclaration"
+                            type="object"
+                            class="btn-danger"
+                            confirm="Ces factures ont déjà été déclarées. Voulez-vous vraiment les déclarer à nouveau ?"
+                            invisible="etat == 'genere' or not deja_declare"/>
+                    <button string="Annuler"
+                            special="cancel"
+                            class="btn-secondary"
+                            invisible="etat == 'genere'"/>
+                    <button string="Fermer"
+                            special="cancel"
+                            class="btn-primary"
+                            invisible="etat != 'genere'"/>
+                </footer>
+
+            </form>
+        </field>
+    </record>
+
+    <record id="action_ras_declaration_wizard" model="ir.actions.act_window">
+        <field name="name">Déclarer RAS</field>
+        <field name="res_model">ras.declaration.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+        <field name="binding_model_id" ref="account.model_account_move"/>
+        <field name="binding_view_types">list</field>
+    </record>
+
+</odoo>

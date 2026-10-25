@@ -1,0 +1,23 @@
+<odoo>
+    <record id="view_product_category_form_ras" model="ir.ui.view">
+        <field name="name">product.category.form.ras</field>
+        <field name="model">product.category</field>
+        <field name="inherit_id" ref="product.product_category_form_view"/>
+        <field name="arch" type="xml">
+            <xpath expr="//sheet" position="inside">
+                <group string="RAS">
+                    <field name="ras_categorie"/>
+                    <field name="ras_motif_exclusion_id"
+                           invisible="ras_categorie != 'exclu'"/>
+                    <field name="ras_categorie_remuneration_id"
+                           options="{'no_quick_create': True}"
+                           invisible="ras_categorie != 'soumis'"/>
+                    <field name="ras_soumis_tva"
+                           invisible="ras_categorie != 'soumis'"/>
+                    <field name="ras_soumis_is"
+                           invisible="ras_categorie != 'soumis'"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,60 @@
+<odoo>
+    <record id="view_partner_form_ras_tva" model="ir.ui.view">
+        <field name="name">res.partner.form.ras.tva</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="base.view_partner_form"/>
+        <field name="arch" type="xml">
+
+            <!-- Identifiant fiscal, à côté de l'ICE -->
+            <field name="company_registry" position="after">
+                <field name="ras_identifiant_fiscal" invisible="parent_id"/>
+            </field>
+
+            <notebook position="inside">
+                <page string="RAS" name="ras_page">
+                    <group>
+                        <group string="Statut fiscal">
+                            <field name="ras_type_fournisseur"/>
+                            <field name="ras_soumis_is"
+                                   invisible="ras_type_fournisseur != 'societe'"/>
+                            <field name="ras_regime_fiscal"
+                                   invisible="ras_type_fournisseur != 'personne_physique'"/>
+                        </group>
+                        <group string="Résidence fiscale">
+                            <field name="ras_residence_fiscale"/>
+                            <field name="country_id"
+                                   string="Pays"
+                                   readonly="1"
+                                   invisible="ras_residence_fiscale != 'non_resident'"/>
+                            <field name="ras_convention_fiscale"
+                                   invisible="ras_residence_fiscale != 'non_resident'"/>
+                            <field name="ras_taux_conventionnel"
+                                   invisible="ras_residence_fiscale != 'non_resident' or not ras_convention_fiscale"/>
+                            <field name="ras_date_delivrance_attestation_residence"
+                                   invisible="ras_residence_fiscale != 'non_resident'"/>
+                            <field name="ras_date_limite_validite_attestation_residence"
+                                   readonly="1"
+                                   invisible="ras_residence_fiscale != 'non_resident'"/>
+                            <field name="ras_attestation_residence_valide"
+                                   readonly="1"
+                                   invisible="ras_residence_fiscale != 'non_resident'"/>
+                            <field name="ras_document_attestation_residence"
+                                   filename="ras_document_attestation_residence_filename"
+                                   invisible="ras_residence_fiscale != 'non_resident'"/>
+                            <field name="ras_document_attestation_residence_filename"
+                                   invisible="1"/>
+                        </group>
+                    </group>
+                    <group string="Attestation de régularité fiscale (ARF)">
+                        <field name="ras_date_delivrance_attestation"/>
+                        <field name="ras_date_limite_validite_attestation" readonly="1"/>
+                        <field name="ras_attestation_fiscale" readonly="1"/>
+                        <field name="ras_document_attestation"
+                               filename="ras_document_attestation_filename"/>
+                        <field name="ras_document_attestation_filename" invisible="1"/>
+                    </group>
+                </page>
+            </notebook>
+        </field>
+    </record>
+</odoo>

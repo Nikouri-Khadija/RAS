@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_account_move_ras_wizard_form" model="ir.ui.view">
+        <field name="name">account.move.ras.wizard.form</field>
+        <field name="model">account.move.ras.wizard</field>
+        <field name="arch" type="xml">
+
+            <form string="Calcul de la RAS">
+
+                <field name="warning_message" invisible="1"/>
+                <field name="currency_id" invisible="1"/>
+                <field name="ras_non_applicable" invisible="1"/>
+                <field name="register_id" invisible="1"/>
+                <field name="partner_non_resident" invisible="1"/>
+
+                <div class="alert alert-warning"
+                     role="alert"
+                     invisible="not warning_message">
+                    <field name="warning_message"
+                           readonly="1"
+                           nolabel="1"/>
+                </div>
+
+                <group>
+                    <group>
+                        <field name="move_id" readonly="1"/>
+                        <field name="partner_id" readonly="1"/>
+                        <field name="amount_total" readonly="1"/>
+                    </group>
+
+                    <!-- Fournisseur résident : RAS TVA / IS / IR -->
+                    <group invisible="partner_non_resident">
+                        <field name="ras_tva_id"
+                               options="{'no_quick_create': True}"
+                               context="{'default_ras_is_retenue_source': True, 'default_ras_type': 'tva', 'default_type_tax_use': 'purchase'}"/>
+                        <field name="ras_is_id"
+                               options="{'no_quick_create': True}"
+                               context="{'default_ras_is_retenue_source': True, 'default_ras_type': 'is', 'default_type_tax_use': 'purchase'}"/>
+                        <field name="ras_ir_id"
+                               options="{'no_quick_create': True}"
+                               context="{'default_ras_is_retenue_source': True, 'default_ras_type': 'ir', 'default_type_tax_use': 'purchase'}"/>
+                    </group>
+
+                    <!-- Fournisseur non-résident : RAS Non-résident uniquement -->
+                    <group invisible="not partner_non_resident">
+                        <field name="ras_export_id"
+                               options="{'no_quick_create': True}"
+                               context="{'default_ras_is_retenue_source': True, 'default_ras_type': 'export', 'default_type_tax_use': 'purchase'}"/>
+                    </group>
+                </group>
+
+                <field name="line_ids">
+
+                    <list create="false"
+                          delete="false"
+                          editable="bottom">
+
+                        <field name="invoice_line_id"
+                               column_invisible="1"
+                               force_save="1"/>
+
+                        <field name="product_id"
+                               readonly="1"
+                               force_save="1"/>
+
+                        <field name="base_amount"
+                               readonly="1"
+                               force_save="1"/>
+
+                        <field name="tva_reference_id"
+                               readonly="1"
+                               force_save="1"/>
+
+                        <field name="ras_tva_applicable"
+                               column_invisible="1"
+                               force_save="1"/>
+
+                        <field name="ras_is_applicable"
+                               column_invisible="1"
+                               force_save="1"/>
+
+                        <field name="ras_ir_applicable"
+                               column_invisible="1"
+                               force_save="1"/>
+
+                        <field name="ras_export_applicable"
+                               column_invisible="1"
+                               force_save="1"/>
+
+                        <!-- Résident : RAS IS appliquée ou non sur la ligne -->
+                        <field name="ras_is"
+                               widget="boolean_toggle"
+                               column_invisible="parent.partner_non_resident"/>
+
+                        <!-- Résident : taxe RAS TVA de la ligne -->
+                        <field name="tax_ids"
+                               widget="many2many_tags"
+                               string="Taxe RAS TVA"
+                               column_invisible="parent.partner_non_resident"/>
+
+                        <!-- Non-résident : taux modifiable par ligne -->
+                        <field name="ras_export_taux"
+                               string="Taux (%)"
+                               column_invisible="not parent.partner_non_resident"/>
+
+                        <field name="montant_ras"
+                               string="Montant RAS"
+                               readonly="1"
+                               force_save="1"/>
+
+                    </list>
+
+                </field>
+
+                <group class="oe_subtotal_footer">
+
+                    <field name="montant_ras_tva"
+                           string="Montant RAS TVA"
+                           readonly="1"
+                           invisible="montant_ras_tva == 0"/>
+
+                    <field name="montant_ras_is"
+                           string="Montant RAS IS"
+                           readonly="1"
+                           invisible="montant_ras_is == 0"/>
+
+                    <field name="montant_ras_ir"
+                           string="Montant RAS IR"
+                           readonly="1"
+                           invisible="montant_ras_ir == 0"/>
+
+                    <field name="montant_ras_export"
+                           string="Montant RAS Non-résident"
+                           readonly="1"
+                           invisible="montant_ras_export == 0"/>
+
+                    <field name="montant_ras"
+                           string="Total RAS"
+                           class="oe_subtotal_footer_separator"
+                           readonly="1"/>
+
+                </group>
+
+                <footer>
+
+                    <button string="Appliquer au paiement"
+                            name="action_enregistrer"
+                            type="object"
+                            class="btn-primary"/>
+
+                    <button string="Retour au paiement"
+                            name="action_retour_paiement"
+                            type="object"
+                            class="btn-secondary"/>
+
+                </footer>
+
+            </form>
+
+        </field>
+    </record>
+
+    <record id="action_account_move_ras_wizard"
+            model="ir.actions.act_window">
+
+        <field name="name">Calculer la RAS</field>
+        <field name="res_model">account.move.ras.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+
+    </record>
+
+</odoo>

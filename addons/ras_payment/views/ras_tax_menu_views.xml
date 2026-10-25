@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- Liste des taux RAS -->
+    <record id="view_tax_list_ras" model="ir.ui.view">
+        <field name="name">account.tax.list.ras</field>
+        <field name="model">account.tax</field>
+        <field name="arch" type="xml">
+            <list string="Taux RAS" decoration-muted="not active" default_order="ras_type, ras_taux_legal, name">
+                <field name="name"/>
+                <field name="ras_type" string="Type de RAS"/>
+                <field name="ras_taux_legal" string="Taux légal (%)"/>
+                <field name="ras_taxe_tva_reference_id" string="TVA de référence"/>
+                <field name="amount" string="Montant (%)"/>
+                <field name="type_tax_use" optional="hide"/>
+                <field name="company_id" options="{'no_create': True}" groups="base.group_multi_company"/>
+                <field name="active" widget="boolean_toggle"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Recherche / regroupement -->
+    <record id="view_tax_search_ras" model="ir.ui.view">
+        <field name="name">account.tax.search.ras</field>
+        <field name="model">account.tax</field>
+        <field name="arch" type="xml">
+            <search string="Taux RAS">
+                <field name="name"/>
+                <field name="ras_taux_legal"/>
+                <filter name="ras_tva" string="RAS TVA" domain="[('ras_type', '=', 'tva')]"/>
+                <filter name="ras_is" string="RAS IS" domain="[('ras_type', '=', 'is')]"/>
+                <filter name="ras_ir" string="RAS IR" domain="[('ras_type', '=', 'ir')]"/>
+                <filter name="ras_export" string="RAS Non-résident" domain="[('ras_type', '=', 'export')]"/>
+                <separator/>
+                <filter name="inactive" string="Archivées" domain="[('active', '=', False)]"/>
+                <group expand="0" string="Regrouper par">
+                    <filter name="groupby_ras_type" string="Type de RAS" context="{'group_by': 'ras_type'}"/>
+                    <filter name="groupby_company" string="Société" context="{'group_by': 'company_id'}" groups="base.group_multi_company"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Action : uniquement les taxes de retenue à la source -->
+    <record id="action_ras_tax_list" model="ir.actions.act_window">
+        <field name="name">Taux RAS</field>
+        <field name="res_model">account.tax</field>
+        <field name="view_mode">list,form</field>
+        <field name="domain">[('ras_is_retenue_source', '=', True)]</field>
+        <field name="context">{
+            'default_ras_is_retenue_source': True,
+            'default_type_tax_use': 'purchase',
+            'search_default_groupby_ras_type': 1,
+        }</field>
+        <field name="search_view_id" ref="view_tax_search_ras"/>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">Aucun taux RAS configuré</p>
+            <p>Créez ici les taxes de retenue à la source (TVA, IS, IR, Non-résident) utilisées par l'assistant « Calculer RAS ».</p>
+        </field>
+    </record>
+
+    <record id="action_ras_tax_list_view_list" model="ir.actions.act_window.view">
+        <field name="sequence" eval="1"/>
+        <field name="view_mode">list</field>
+        <field name="view_id" ref="view_tax_list_ras"/>
+        <field name="act_window_id" ref="action_ras_tax_list"/>
+    </record>
+
+    <record id="action_ras_tax_list_view_form" model="ir.actions.act_window.view">
+        <field name="sequence" eval="2"/>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="account.view_tax_form"/>
+        <field name="act_window_id" ref="action_ras_tax_list"/>
+    </record>
+
+    <!-- Menu : Comptabilité > Configuration > Comptabilité, juste sous « Taxes » -->
+    <menuitem id="menu_ras_tax_list"
+              name="Taux RAS"
+              action="action_ras_tax_list"
+              parent="account.account_account_menu"
+              sequence="2"/>
+
+</odoo>

@@ -1,0 +1,4 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_account_move_ras_wizard,account.move.ras.wizard,model_account_move_ras_wizard,account.group_account_invoice,1,1,1,1
+access_account_move_ras_wizard_line,account.move.ras.wizard.line,model_account_move_ras_wizard_line,account.group_account_invoice,1,1,1,1
+access_account_payment_register_ras,account.payment.register.ras,model_account_payment_register_ras,account.group_account_invoice,1,1,1,1

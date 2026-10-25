@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="view_ras_declaration_list" model="ir.ui.view">
+        <field name="name">ras.declaration.list</field>
+        <field name="model">ras.declaration</field>
+        <field name="arch" type="xml">
+            <list string="Déclarations RAS" create="false">
+                <field name="name"/>
+                <field name="type_declaration"/>
+                <field name="annee"/>
+                <field name="periode_libelle"/>
+                <field name="regime"/>
+                <field name="nb_factures"/>
+                <field name="total_base"/>
+                <field name="total_retenu"/>
+                <field name="date_generation"/>
+                <field name="user_id" optional="hide"/>
+                <field name="company_id" groups="base.group_multi_company" optional="hide"/>
+                <field name="currency_id" column_invisible="1"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_ras_declaration_form" model="ir.ui.view">
+        <field name="name">ras.declaration.form</field>
+        <field name="model">ras.declaration</field>
+        <field name="arch" type="xml">
+            <form string="Déclaration RAS" create="false" edit="false">
+                <header>
+                    <button name="action_attestation"
+                            type="object"
+                            string="Imprimer l'attestation RAS"
+                            class="btn-primary"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_voir_factures" type="object"
+                                class="oe_stat_button" icon="fa-file-text-o">
+                            <field name="nb_factures" widget="statinfo" string="Factures"/>
+                        </button>
+                    </div>
+                    <div class="oe_title">
+                        <h1><field name="name" readonly="1"/></h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="type_declaration" readonly="1"/>
+                            <field name="annee" readonly="1"/>
+                            <field name="regime" readonly="1"/>
+                            <field name="periode_libelle" readonly="1"/>
+                            <field name="company_id" readonly="1" groups="base.group_multi_company"/>
+                        </group>
+                        <group>
+                            <field name="total_base" readonly="1"/>
+                            <field name="total_retenu" readonly="1"/>
+                            <field name="date_generation" readonly="1"/>
+                            <field name="user_id" readonly="1"/>
+                            <field name="currency_id" invisible="1"/>
+                        </group>
+                    </group>
+                    <group string="Versement au Trésor">
+                        <field name="date_reversement" readonly="1"/>
+                        <field name="reference_quittance" readonly="1"/>
+                    </group>
+                    <group string="Fichier">
+                        <field name="fichier" filename="nom_fichier" readonly="1"/>
+                        <field name="nom_fichier" invisible="1"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_ras_declaration" model="ir.actions.act_window">
+        <field name="name">Déclarations RAS</field>
+        <field name="res_model">ras.declaration</field>
+        <field name="view_mode">list,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">Aucune déclaration générée</p>
+            <p>Les déclarations sont créées depuis la liste des factures fournisseurs : Action → Déclarer RAS.</p>
+        </field>
+    </record>
+
+    <menuitem id="menu_ras_declaration"
+              name="Déclarations RAS"
+              action="action_ras_declaration"
+              parent="account.menu_finance_reports"
+              sequence="90"/>
+
+</odoo>

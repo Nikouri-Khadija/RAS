@@ -1,0 +1,20 @@
+<odoo>
+    <record id="view_tax_form_ras" model="ir.ui.view">
+        <field name="name">account.tax.form.ras</field>
+        <field name="model">account.tax</field>
+        <field name="inherit_id" ref="account.view_tax_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//sheet" position="inside">
+                <group string="Retenue à la Source (RAS)">
+                    <field name="ras_is_retenue_source"/>
+                    <field name="ras_type"
+                           invisible="not ras_is_retenue_source"/>
+                    <field name="ras_taux_legal"
+                           invisible="not ras_is_retenue_source"/>
+                    <field name="ras_taxe_tva_reference_id"
+                           invisible="not ras_is_retenue_source or ras_type != 'tva'"/>
+                </group>
+            </xpath>
+        </field>
+    </record>
+</odoo>

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo noupdate="1">
+
+    <!-- Motifs d'exclusion de la RAS : prestations non soumises de la
+         cartographie LMV. Modifiables depuis la catégorie de produit. -->
+
+    <record id="motif_exclusion_carburant" model="ras.motif.exclusion">
+        <field name="name">Carburant</field>
+        <field name="sequence">10</field>
+    </record>
+
+    <record id="motif_exclusion_eau_electricite" model="ras.motif.exclusion">
+        <field name="name">Eau et électricité</field>
+        <field name="sequence">20</field>
+    </record>
+
+    <record id="motif_exclusion_fournitures" model="ras.motif.exclusion">
+        <field name="name">Fournitures de bureau/Consommable/matériel</field>
+        <field name="sequence">30</field>
+    </record>
+
+    <record id="motif_exclusion_distributeurs_fleuriste" model="ras.motif.exclusion">
+        <field name="name">Distributeurs boissons/snacking &amp; Fleuriste</field>
+        <field name="sequence">40</field>
+    </record>
+
+    <record id="motif_exclusion_bien_equipement" model="ras.motif.exclusion">
+        <field name="name">Bien d'équipement (Achat)</field>
+        <field name="sequence">50</field>
+    </record>
+
+    <record id="motif_exclusion_licences_achat" model="ras.motif.exclusion">
+        <field name="name">Licences informatiques (achat)</field>
+        <field name="sequence">60</field>
+    </record>
+
+    <record id="motif_exclusion_licences_renouvellement" model="ras.motif.exclusion">
+        <field name="name">Renouvellement Licences informatiques</field>
+        <field name="sequence">70</field>
+    </record>
+
+    <record id="motif_exclusion_travaux_amenagement" model="ras.motif.exclusion">
+        <field name="name">Travaux d'aménagement</field>
+        <field name="sequence">80</field>
+    </record>
+
+    <record id="motif_exclusion_telecom" model="ras.motif.exclusion">
+        <field name="name">Télécommunications</field>
+        <field name="sequence">90</field>
+    </record>
+
+    <record id="motif_exclusion_restauration" model="ras.motif.exclusion">
+        <field name="name">Repas de déjeuner/Pause café (restauration)</field>
+        <field name="sequence">100</field>
+    </record>
+
+</odoo>
